@@ -628,6 +628,7 @@ class PPStructure(StructureSystem):
 
 def main():
     # for cmd
+    print("starting ocr")
     args = parse_args(mMain=True)
     image_dir = args.image_dir
     if is_link(image_dir):
@@ -720,3 +721,4 @@ def main():
                 item.pop('res')
                 logger.info(item)
             logger.info('result save to {}'.format(args.output))
+main()
