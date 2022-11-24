@@ -628,7 +628,6 @@ class PPStructure(StructureSystem):
 
 def main():
     # for cmd
-    print("starting ocr")
     args = parse_args(mMain=True)
     image_dir = args.image_dir
     if is_link(image_dir):
@@ -648,6 +647,10 @@ def main():
 
     for img_path in image_file_list:
         img_name = os.path.basename(img_path).split('.')[0]
+        args.output=os.path.join(args.output,img_name)
+        if not os.path.exists(args.output):
+            os.makedirs(args.output)
+
         logger.info('{}{}{}'.format('*' * 10, img_path, '*' * 10))
         if args.type == 'ocr':
             result = engine.ocr(img_path,
@@ -661,6 +664,7 @@ def main():
                         logger.info(line)
         elif args.type == 'structure':
             img, flag_gif, flag_pdf = check_and_read(img_path)
+            
             if not flag_gif and not flag_pdf:
                 img = cv2.imread(img_path)
 
@@ -683,10 +687,11 @@ def main():
                 img_paths = []
                 for index, pdf_img in enumerate(img):
                     os.makedirs(
-                        os.path.join(args.output, img_name), exist_ok=True)
+                        args.output,  exist_ok=True)
                     pdf_img_path = os.path.join(
-                        args.output, img_name,
+                        args.output,
                         img_name + '_' + str(index) + '.jpg')
+                    
                     cv2.imwrite(pdf_img_path, pdf_img)
                     img_paths.append([pdf_img_path, pdf_img])
 

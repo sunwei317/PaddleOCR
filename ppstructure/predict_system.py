@@ -186,7 +186,7 @@ class StructureSystem(object):
 
 
 def save_structure_res(res, save_folder, img_name, img_idx=0):
-    excel_save_folder = os.path.join(save_folder, img_name)
+    excel_save_folder = save_folder #os.path.join(save_folder, img_name)
     os.makedirs(excel_save_folder, exist_ok=True)
     res_cp = deepcopy(res)
     # save res

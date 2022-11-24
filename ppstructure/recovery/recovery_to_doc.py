@@ -47,7 +47,7 @@ def convert_info_docx(img, res, save_folder, img_name):
             flag = 2
 
         if region['type'].lower() == 'figure':
-            excel_save_folder = os.path.join(save_folder, img_name)
+            excel_save_folder = save_folder #os.path.join(save_folder, img_name)
             img_path = os.path.join(excel_save_folder,
                                     '{}_{}.jpg'.format(region['bbox'], img_idx))
             paragraph_pic = doc.add_paragraph()
@@ -73,7 +73,7 @@ def convert_info_docx(img, res, save_folder, img_name):
                 text_run.font.size = shared.Pt(10)
 
     # save to docx
-    docx_path = os.path.join(save_folder,img_name, '{}_ocr.docx'.format(img_name))
+    docx_path = os.path.join(save_folder, '{}_ocr.docx'.format(img_name))
     doc.save(docx_path)
     logger.info('docx save to {}'.format(docx_path))
 
